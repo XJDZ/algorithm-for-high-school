@@ -1,0 +1,27 @@
+int make(vector<int> a)//a数组为每个房间住的人数
+{
+    int sum=0;
+    int nowCnt=0;
+    int n=a.size()-1;
+    for(int i=n;i>0;i--)
+    {
+        sum+=a[i];
+        nowCnt+=a[i]*(i-1);
+    }
+    vector<int> dp(n+1,0);
+    dp[1]=nowCnt;
+    int min=dp[1];
+    int start=1;
+    for(int i=n;i>1;i--)
+    {
+        nowCnt-=n*a[i];
+        nowCnt+=sum;
+        dp[i]=nowCnt;
+        if(dp[i]<min)
+        {
+            min=dp[i];
+            start=i;
+        }
+    }
+    return start;
+}
